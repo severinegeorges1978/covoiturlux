@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { createClient } from ""@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 
 // ─── CONFIG SUPABASE ─────────────────────────────────────────────────────────
 // Remplace ces deux valeurs par celles de ton projet Supabase
