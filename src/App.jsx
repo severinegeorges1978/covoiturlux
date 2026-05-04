@@ -26,7 +26,7 @@ const COMMUNES_VILLAGES = {
   "Habay": ["Habay-la-Neuve","Habay-la-Vieille","Anlier","Barnich","Hachy","Rulles"],
   "Herbeumont": ["Herbeumont","Martilly","Saint-Médard"],
   "Houffalize": ["Houffalize","Achouffe","Engreux","Mabompré","Nadrin","Tailles","Wibrin"],
-  "La Roche-en-Ardenne": ["La Roche-en-Ardenne","Berismenil","Hives","Mierchamps","Ortho","Samrée","Vecmont"],
+  "La Roche-en-Ardenne": ["La Roche-en-Ardenne","Berismenil","Beausaint","Buisson","Cielle","Halleux","Hives","Mierchamps","Ortho","Samrée","Vecmont"],
   "Léglise": ["Léglise","Assenois","Ebly","Mellier","Witry"],
   "Libin": ["Libin","Anloy","But","Smuid","Villance"],
   "Libramont-Chevigny": ["Libramont","Recogne","Remagne","Saint-Pierre","Freux"],
