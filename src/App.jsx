@@ -51,8 +51,8 @@ const COMMUNES_VILLAGES = {
   "Wellin": ["Wellin", "Chanly", "Halma", "Lomprez", "Sohier"],
 };
 
-const TYPE_COLORS = { "Bal de kermesse":"#e8650a","Discothèque":"#6b21a8","Soirée annuelle":"#0369a1" };
-const TYPE_ICONS  = { "Bal de kermesse":"🎪","Discothèque":"🎵","Soirée annuelle":"⭐" };
+const TYPE_COLORS = { "Bal de kermesse":"#e8650a","Discothèque":"#6b21a8","Soirée annuelle":"#0369a1","Soirées privées":"#be185d" };
+const TYPE_ICONS  = { "Bal de kermesse":"🎪","Discothèque":"🎵","Soirée annuelle":"⭐","Soirées privées":"🎂" };
 
 function formatDate(d) {
   return new Date(d).toLocaleDateString("fr-BE",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
@@ -913,7 +913,7 @@ export default function App() {
                 <select className="form-select" value={newSoiree.type} onChange={e=>setNewSoiree(p=>({...p,type:e.target.value}))}>
                   <option>Bal de kermesse</option>
                   <option>Discothèque</option>
-                  <option>Soirée annuelle</option>
+                  <option>Soirée annuelle</option><option>Soirées privées</option>
                 </select>
               </div>
             </div>
