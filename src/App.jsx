@@ -256,6 +256,7 @@ export default function App() {
   const [inscription, setInscription] = useState({ aller:false, retour:true, places:2 });
   const [inscriptionMsg, setInscriptionMsg] = useState("");
   const [showAddSoiree, setShowAddSoiree]   = useState(false);
+  const [editSoiree, setEditSoiree] = useState(null);
   const [newSoiree, setNewSoiree] = useState({ nom:"",date:"",lieu:"",salle:"",type:"Bal de kermesse" });
 
   // Communes
@@ -387,6 +388,19 @@ export default function App() {
   async function handleDesister(soireeId) {
     await supabase.from("inscriptions").delete()
       .eq("soiree_id", soireeId).eq("user_id", user.id);
+    loadSoirees();
+  }
+
+  async function handleEditSoiree() {
+    if(!editSoiree || !editSoiree.nom || !editSoiree.date || !editSoiree.lieu) return;
+    await supabase.from("soirees").update({
+      nom: editSoiree.nom,
+      date: editSoiree.date,
+      lieu: editSoiree.lieu,
+      salle: editSoiree.salle,
+      type: editSoiree.type
+    }).eq("id", editSoiree.id);
+    setEditSoiree(null);
     loadSoirees();
   }
 
@@ -893,6 +907,22 @@ export default function App() {
           )}
         </div>
       </div>
+
+      {editSoiree && (
+        <div className="modal-overlay" onClick={()=>setEditSoiree(null)}>
+          <div className="modal" onClick={e=>e.stopPropagation()}>
+            <h3 style={{marginBottom:20}}>✏️ Modifier la soirée</h3>
+            <div className="form-group"><label className="form-label">Nom *</label><input className="form-input" value={editSoiree.nom} onChange={e=>setEditSoiree(p=>({...p,nom:e.target.value}))} /></div>
+            <div className="form-row">
+              <div className="form-group"><label className="form-label">Date *</label><input className="form-input" type="date" value={editSoiree.date} onChange={e=>setEditSoiree(p=>({...p,date:e.target.value}))} /></div>
+              <div className="form-group"><label className="form-label">Type</label><select className="form-select" value={editSoiree.type} onChange={e=>setEditSoiree(p=>({...p,type:e.target.value}))}><option>Bal de kermesse</option><option>Discothèque</option><option>Festival/Concert</option><option>Soirée privée</option><option>Soirée carnaval</option><option>Autre</option></select></div>
+            </div>
+            <div className="form-group"><label className="form-label">Commune *</label><select className="form-select" value={editSoiree.lieu} onChange={e=>setEditSoiree(p=>({...p,lieu:e.target.value}))}><option value="">— Choisir —</option>{Object.keys(COMMUNES_VILLAGES).sort().map(c=><option key={c} value={c}>{c}</option>)}</select></div>
+            <div className="form-group"><label className="form-label">Salle / lieu</label><input className="form-input" value={editSoiree.salle||""} onChange={e=>setEditSoiree(p=>({...p,salle:e.target.value}))} /></div>
+            <div className="modal-actions"><button className="btn btn-ghost" onClick={()=>setEditSoiree(null)}>Annuler</button><button className="btn btn-primary" onClick={handleEditSoiree}>Enregistrer</button></div>
+          </div>
+        </div>
+      )}
 
       {/* MODAL AJOUT SOIRÉE */}
       {showAddSoiree && (
