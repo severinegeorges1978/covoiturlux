@@ -655,6 +655,7 @@ export default function App() {
                         {inscriptionMsg&&<div className="alert alert-success">{inscriptionMsg}</div>}
                         {meInscrit ? (
                           <button className="btn btn-ghost btn-sm" onClick={()=>handleDesister(s.id)}>Se désister</button>
+                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>✏️ Modifier</button>}
                         ) : (
                           <div className="inscription-form">
                             <h4 style={{marginBottom:14}}>Je propose un trajet</h4>
@@ -749,6 +750,7 @@ export default function App() {
                     </div>
                     <div style={{display:"flex",gap:10,marginTop:12}}>
                       <button className="btn btn-ghost btn-sm" onClick={()=>handleDesister(s.id)}>Se désister</button>
+                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>✏️ Modifier</button>}
                       <button className="btn btn-outline btn-sm" onClick={()=>{setActiveForum(s.id);loadForumMessages(s.id);setMsgTab("forum");setTab("messagerie")}}>💬 Forum de la soirée</button>
                     </div>
                   </div>
