@@ -365,6 +365,7 @@ export default function App() {
       commune: regData.commune,
       village: regData.village,
       telephone: "",
+      email: regData.email,
     });
     await loadProfile(data.user.id);
   }
