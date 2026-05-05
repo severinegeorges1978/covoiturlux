@@ -9,46 +9,47 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ─── DONNÉES GÉOGRAPHIQUES ────────────────────────────────────────────────────
 const COMMUNES_VILLAGES = {
-  "Arlon": ["Arlon (centre)", "Autelbas", "Fouches", "Guirsch", "Heinsch", "Sesselich", "Stockem", "Toernich"],
-  "Attert": ["Attert", "Nobressart", "Nothomb", "Thiaumont", "Tontelange", "Useldange"],
-  "Aubange": ["Aubange", "Athus", "Halanzy"],
-  "Bastogne": ["Bastogne", "Al-Hez", "Arloncourt", "Benonchamps", "Bertogne", "Bethomont", "Bourcy", "Bras", "Champs", "Chifontaine", "Cobru", "Compogne", "Fagnoux", "Fays", "Flamierge", "Flamisoul", "Frenet", "Gives", "Givroulle", "Givry", "Harzy", "Hemroulle", "Horritine", "Isle-la-Hesse", "Isle-le-Pre", "Livarchamps", "Longchamps", "Losange", "Lutrebois", "Lutremange", "Luzery", "Mageret", "Mande-Saint-Etienne", "Marenwez", "Marvie", "Michamps", "Moinet", "Monaville", "Mont", "Neffe", "Noville", "Oubourcy", "Rachamps", "Recogne", "Remoifosse", "Rolley", "Rouette", "Salle", "Savy", "Senonchamps", "Troismont", "Tronle", "Vaux", "Villers-la-Bonne-Eau", "Wardin", "Wigny", "Withimont"],
-  "Bertrix": ["Bertrix", "Auby-sur-Semois", "Cugnon", "Jehonville", "Orgeo"],
-  "Bouillon": ["Bouillon", "Bellevaux", "Corbion", "Dohan", "Les Hayons", "Noirefontaine", "Poupehan", "Rochehaut", "Sensenruth", "Ucimont", "Vivy"],
-  "Chiny": ["Chiny", "Frenois", "Izel", "Jamoigne", "Les Bulles", "Moyen", "Pin", "Prouvy", "Romponcelle", "Suxy", "Termes", "Valansart"],
-  "Daverdisse": ["Daverdisse", "Gembes", "Haut-Fays", "Porcheresse"],
-  "Durbuy": ["Durbuy", "Barvaux", "Bende", "Bomal", "Borlon", "Grandhan", "Heyd", "Izier", "Septon", "Tohogne", "Villers-Sainte-Gertrude", "Weris"],
-  "Etalle": ["Etalle", "Buzenol", "Chantemelle", "Fratin", "Lenclos", "Mortinsart", "Sainte-Marie", "Sivry", "Vance", "Villers-sur-Semois"],
-  "Fauvillers": ["Fauvillers", "Bodange", "Burnon", "Hollange", "Honville", "Hotte", "Malmaison", "Menufontaine", "Sainlez", "Strainchamps", "Tintange", "Warnach", "Wisembach"],
-  "Florenville": ["Florenville", "Chassepierre", "Fontenoille", "Lacuisine", "Martue", "Muno", "Sainte-Cecile", "Villers-devant-Orval"],
-  "Gouvy": ["Gouvy", "Beho", "Bovigny", "Cherain", "Limerle", "Montleban"],
-  "Habay": ["Habay-la-Neuve", "Habay-la-Vieille", "Anlier", "Hachy", "Harinsart", "Houdemont", "Marbehan", "Nantimont", "Orsinfaing", "Rulles"],
-  "Herbeumont": ["Herbeumont", "Gribomont", "Martilly", "Menugoutte", "Saint-Medard", "Straimont"],
-  "Houffalize": ["Houffalize", "Achouffe", "Alhoumont", "Boeur", "Bonnerue", "Buret", "Cetturu", "Chabrehez", "Cowan", "Dinez", "Engreux", "Filly", "Fontenaille", "Mabompre", "Mont", "Mormont", "Nadrin", "Ollomont", "Pisserotte", "Sommerain", "Tailles", "Tavigny", "Taverneux", "Vellereux", "Vissoule", "Wandebourcy", "Wibrin", "Wilogne"],
-  "La Roche-en-Ardenne": ["La Roche-en-Ardenne", "Beausaint", "Berismenil", "Cielle", "Halleux", "Hives", "Mierchamps", "Ortho", "Samree", "Vecmont", "Warempage"],
-  "Leglise": ["Leglise", "Assenois", "Ebly", "Loftement", "Mellier", "Witry"],
-  "Libin": ["Libin", "Anloy", "Glaireuse", "Hamaide", "Lesse", "Ochamps", "Redu", "Sechery", "Transinne", "Villance"],
-  "Libramont-Chevigny": ["Libramont", "Bernimont", "Bonnerue", "Bougnimont", "Bras", "Chenet", "Flohimont", "Freux", "Jenneville", "Lamouline", "Laneuville", "Moircy", "Neuvillers", "Nimbermont", "Ourt", "Presseux", "Recogne", "Remagne", "Renaumont", "Rondu", "Saint-Pierre", "Sainte-Marie-Chevigny", "Sberchamps", "Seviscourt", "Wideumont"],
-  "Manhay": ["Manhay", "Dochamps", "Grandmenil", "Harre", "Malemre", "Odeigne", "Vaux-Chavanne"],
-  "Marche-en-Famenne": ["Marche-en-Famenne", "Aye", "Champlon-Famenne", "Grimbiemont", "Hargimont", "Hollogne", "Humain", "Lignieres", "Marloie", "On", "Roy", "Verdenne", "Waha"],
-  "Martelange": ["Martelange", "Grumelange", "La Folie", "La Roche Percee", "Neuперle", "Radelange"],
-  "Meix-devant-Virton": ["Meix-devant-Virton", "Gerouville", "Houdrigny", "Limes", "Robelmont", "Saint-Mard", "Sommethonne", "Villers-la-Loue"],
-  "Messancy": ["Messancy", "Bebange", "Buvange", "Differt", "Guelff", "Habergy", "Hondelange", "Longeau", "Selange", "Turpange", "Wolkrange"],
-  "Musson": ["Musson", "Baranzy", "Gennevaux", "Mussy-la-Ville", "Signeulx", "Willancourt"],
-  "Nassogne": ["Nassogne", "Ambly", "Bande", "Forrieres", "Grune", "Harsin", "Lesterny", "Masbourg"],
-  "Neufchateau": ["Neufchateau", "Cousteumont", "Fineuse", "Gerimont", "Grandvoir", "Grapfontaine", "Hamipre", "Harfontaine", "Hosseuse", "Laherie", "Le Sart", "Longlier", "Montplainchamps", "Semel", "Tournay", "Verlaine"],
-  "Paliseul": ["Paliseul", "Carlsbourg", "Fays-les-Veneurs", "Framont", "Merny", "Nollevaux", "Offagne", "Opont", "Our"],
-  "Rendeux": ["Rendeux", "Beffe", "Cheoux", "Devantave", "Genes", "Hodister", "Jupille", "Laidprangeleux", "Magoster", "Marcourt", "Marcouray", "Ronzon", "Trinal", "Waharday", "Warisy"],
-  "Rouvroy": ["Rouvroy", "Dampicourt", "Harnoncourt", "Lamorteau", "Montquintin", "Torgny"],
-  "Saint-Hubert": ["Saint-Hubert", "Arville", "Awenne", "Hatrival", "Lorcy", "Mirwart", "Poix", "Vesqueville"],
-  "Saint-Leger": ["Saint-Leger", "Chatillon", "Meix-le-Tige"],
-  "Sainte-Ode": ["Sainte-Ode", "Amberloup", "Lavacherie", "Tillet"],
-  "Tellin": ["Tellin", "Bure", "Grupont", "Resteigne"],
-  "Tintigny": ["Tintigny", "Ansart", "Bellefontaine", "Breuvanne", "Han", "Lahage", "Poncelle", "Rossignol", "Saint-Vincent"],
-  "Vaux-sur-Sure": ["Vaux-sur-Sure", "Assenois", "Bercheux", "Chenogne", "Clochimont", "Cobreville", "Hompre", "Jodenville", "Juseret", "Lescheret", "Mande-Sainte-Marie", "Morhet", "Nives", "Poisson-Moulin", "Remichampagne", "Remience", "Remoiville", "Villeroux"],
-  "Vielsalm": ["Vielsalm", "Beche", "Bihain", "Burtonville", "Cahay", "Commanster", "Dairomont", "Ennal", "Farnieres", "Fraiture", "Goronne", "Grand-Halleux", "Hebronval", "Joubiaval", "Le Comte", "Neuville", "Ottre", "Petit-Thier", "Provedroux", "Regne", "Rencheux", "Salmchateau", "Ville-du-Bois"],
-  "Virton": ["Virton", "Bleid", "Chenois", "Ethe", "Gomery", "Grandcourt", "Latour", "Ruette", "Saint-Mard", "Saint-Remy"],
-  "Wellin": ["Wellin", "Chanly", "Halma", "Lomprez", "Sohier"],
+  "Arlon": ["Arlon (centre)","Bonnert","Freylange","Grass","Heinsch","Lagland","Toernich"],
+  "Attert": ["Attert","Bigonville","Nobressart","Tontelange","Useldange"],
+  "Aubange": ["Aubange","Athus","Halanzy","Battincourt","Turpange"],
+  "Bastogne": ["Bastogne","Wardin","Bizory","Villers-la-Bonne-Eau","Longvilly","Noville","Foy","Hardigny","Sibret"],
+  "Bertogne": ["Bertogne","Compogne","Givry","Luzery","Vaux","Wicourt"],
+  "Bertrix": ["Bertrix","Cugnon","Jehonville","Libramont","Maissin","Orgeo","Villance"],
+  "Bouillon": ["Bouillon","Corbion","Dohan","Les Hayons","Noirefontaine","Poupehan","Rochehaut","Sensenruth"],
+  "Chiny": ["Chiny","Izel","Jamoigne","Les Bulles","Muno","Suxy"],
+  "Daverdisse": ["Daverdisse","Haut-Fays","Porcheresse","Sohier","Gembes"],
+  "Durbuy": ["Durbuy","Barvaux","Bomal","Grandhan","Heyd","Tohogne","Wéris"],
+  "Étalle": ["Étalle","Chantemelle","Couvreux","Gérouville","Sainte-Marie"],
+  "Fauvillers": ["Fauvillers","Burnon","Hollange","Strainchamps","Tintange"],
+  "Florenville": ["Florenville","Chassepierre","Fontenoille","Lacuisine","Meix-le-Tige","Sainte-Cécile"],
+  "Gouvy": ["Gouvy","Beho","Bovigny","Cherain","Limerlé","Montleban","Steinbach"],
+  "Habay": ["Habay-la-Neuve","Habay-la-Vieille","Anlier","Barnich","Hachy","Rulles"],
+  "Herbeumont": ["Herbeumont","Martilly","Saint-Médard"],
+  "Houffalize": ["Houffalize","Achouffe","Engreux","Mabompré","Nadrin","Tailles","Wibrin"],
+  "La Roche-en-Ardenne": ["La Roche-en-Ardenne","Berismenil","Beausaint","Buisson","Cielle","Halleux","Hives","Mierchamps","Ortho","Samrée","Vecmont"],
+  "Léglise": ["Léglise","Assenois","Ebly","Mellier","Witry"],
+  "Libin": ["Libin","Anloy","But","Smuid","Villance"],
+  "Libramont-Chevigny": ["Libramont","Recogne","Remagne","Saint-Pierre","Freux"],
+  "Manhay": ["Manhay","Dochamps","Grandménil","Harre","Malempré","Odeigne","Vaux-Chavanne"],
+  "Marche-en-Famenne": ["Marche-en-Famenne","Aye","Bourdon","Hargimont","Humain","Marloie","On","Roy","Waha"],
+  "Martelange": ["Martelange"],
+  "Meix-devant-Virton": ["Meix-devant-Virton","Bellefontaine","Gérouville","Houdrigny","Saint-Mard"],
+  "Messancy": ["Messancy","Aubange","Clémency","Sélange"],
+  "Musson": ["Musson","Baranzy","Châtillon"],
+  "Nassogne": ["Nassogne","Bande","Forrières","Grune","Harsin","Hatrival","Masbourg","Resteigne","Waillet"],
+  "Neufchâteau": ["Neufchâteau","Bertrix","Hamipré","Longlier","Massul","Tournay"],
+  "Paliseul": ["Paliseul","Carlsbourg","Maissin","Opont","Paliseul","Offagne"],
+  "Rendeux": ["Rendeux","Beffe","Grandhan","Hotton","Melreux"],
+  "Rouvroy": ["Rouvroy","Torgny","Lamorteau","Dampicourt"],
+  "Saint-Hubert": ["Saint-Hubert","Awenne","Hatrival","Mirwart","Vesqueville"],
+  "Saint-Léger": ["Saint-Léger","Châtillon","Harnoncourt","Villers-la-Loue"],
+  "Sainte-Ode": ["Sainte-Ode","Amberloup","Tillet","Lavacherie"],
+  "Tellin": ["Tellin","Bure","Grupont","Resteigne","Wavreille"],
+  "Tintigny": ["Tintigny","Bellefontaine","Breuvanne","Lahage","Rossignol","Saint-Vincent"],
+  "Vaux-sur-Sûre": ["Vaux-sur-Sûre","Bercheux","Cobreville","Juseret","Morhet","Nives","Sibret"],
+  "Vielsalm": ["Vielsalm","Bihain","Grand-Halleux","Petit-Thier","Rencheux","Salmchâteau"],
+  "Virton": ["Virton","Ethe","Latour","Ruette","Saint-Mard"],
+  "Wellin": ["Wellin","Chanly","Froidlieu","Lomprez","Sohier"],
 };
 
 const TYPE_COLORS = { "Bal de kermesse":"#e8650a","Discothèque":"#6b21a8","Festival/Concert":"#0369a1","Soirée privée":"#be185d","Soirée carnaval":"#b45309","Autre":"#6b7280" };
@@ -394,11 +395,8 @@ export default function App() {
   async function handleEditSoiree() {
     if(!editSoiree || !editSoiree.nom || !editSoiree.date || !editSoiree.lieu) return;
     await supabase.from("soirees").update({
-      nom: editSoiree.nom,
-      date: editSoiree.date,
-      lieu: editSoiree.lieu,
-      salle: editSoiree.salle,
-      type: editSoiree.type
+      nom: editSoiree.nom, date: editSoiree.date,
+      lieu: editSoiree.lieu, salle: editSoiree.salle, type: editSoiree.type
     }).eq("id", editSoiree.id);
     setEditSoiree(null);
     loadSoirees();
@@ -655,7 +653,7 @@ export default function App() {
                         {inscriptionMsg&&<div className="alert alert-success">{inscriptionMsg}</div>}
                         {meInscrit ? (
                           <button className="btn btn-ghost btn-sm" onClick={()=>handleDesister(s.id)}>Se désister</button>
-                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>✏️ Modifier</button>}
+                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>Modifier</button>}
                         ) : (
                           <div className="inscription-form">
                             <h4 style={{marginBottom:14}}>Je propose un trajet</h4>
@@ -750,7 +748,7 @@ export default function App() {
                     </div>
                     <div style={{display:"flex",gap:10,marginTop:12}}>
                       <button className="btn btn-ghost btn-sm" onClick={()=>handleDesister(s.id)}>Se désister</button>
-                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>✏️ Modifier</button>}
+                      {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>Modifier</button>}
                       <button className="btn btn-outline btn-sm" onClick={()=>{setActiveForum(s.id);loadForumMessages(s.id);setMsgTab("forum");setTab("messagerie")}}>💬 Forum de la soirée</button>
                     </div>
                   </div>
@@ -913,14 +911,14 @@ export default function App() {
       {editSoiree && (
         <div className="modal-overlay" onClick={()=>setEditSoiree(null)}>
           <div className="modal" onClick={e=>e.stopPropagation()}>
-            <h3 style={{marginBottom:20}}>✏️ Modifier la soirée</h3>
-            <div className="form-group"><label className="form-label">Nom *</label><input className="form-input" value={editSoiree.nom} onChange={e=>setEditSoiree(p=>({...p,nom:e.target.value}))} /></div>
+            <h3 style={{marginBottom:20}}>Modifier la soiree</h3>
+            <div className="form-group"><label className="form-label">Nom</label><input className="form-input" value={editSoiree.nom} onChange={e=>setEditSoiree(p=>({...p,nom:e.target.value}))} /></div>
             <div className="form-row">
-              <div className="form-group"><label className="form-label">Date *</label><input className="form-input" type="date" value={editSoiree.date} onChange={e=>setEditSoiree(p=>({...p,date:e.target.value}))} /></div>
-              <div className="form-group"><label className="form-label">Type</label><select className="form-select" value={editSoiree.type} onChange={e=>setEditSoiree(p=>({...p,type:e.target.value}))}><option>Bal de kermesse</option><option>Discothèque</option><option>Festival/Concert</option><option>Soirée privée</option><option>Soirée carnaval</option><option>Autre</option></select></div>
+              <div className="form-group"><label className="form-label">Date</label><input className="form-input" type="date" value={editSoiree.date} onChange={e=>setEditSoiree(p=>({...p,date:e.target.value}))} /></div>
+              <div className="form-group"><label className="form-label">Type</label><select className="form-select" value={editSoiree.type} onChange={e=>setEditSoiree(p=>({...p,type:e.target.value}))}><option>Bal de kermesse</option><option>Discoteque</option><option>Festival/Concert</option><option>Soiree privee</option><option>Soiree carnaval</option><option>Autre</option></select></div>
             </div>
-            <div className="form-group"><label className="form-label">Commune *</label><select className="form-select" value={editSoiree.lieu} onChange={e=>setEditSoiree(p=>({...p,lieu:e.target.value}))}><option value="">— Choisir —</option>{Object.keys(COMMUNES_VILLAGES).sort().map(c=><option key={c} value={c}>{c}</option>)}</select></div>
-            <div className="form-group"><label className="form-label">Salle / lieu</label><input className="form-input" value={editSoiree.salle||""} onChange={e=>setEditSoiree(p=>({...p,salle:e.target.value}))} /></div>
+            <div className="form-group"><label className="form-label">Commune</label><select className="form-select" value={editSoiree.lieu} onChange={e=>setEditSoiree(p=>({...p,lieu:e.target.value}))}><option value="">Choisir</option>{Object.keys(COMMUNES_VILLAGES).sort().map(c=><option key={c} value={c}>{c}</option>)}</select></div>
+            <div className="form-group"><label className="form-label">Salle</label><input className="form-input" value={editSoiree.salle||""} onChange={e=>setEditSoiree(p=>({...p,salle:e.target.value}))} /></div>
             <div className="modal-actions"><button className="btn btn-ghost" onClick={()=>setEditSoiree(null)}>Annuler</button><button className="btn btn-primary" onClick={handleEditSoiree}>Enregistrer</button></div>
           </div>
         </div>
@@ -945,7 +943,7 @@ export default function App() {
                 <select className="form-select" value={newSoiree.type} onChange={e=>setNewSoiree(p=>({...p,type:e.target.value}))}>
                   <option>Bal de kermesse</option>
                   <option>Discothèque</option>
-                  <option>Soirée annuelle</option><option>Soirées privées</option>
+                  <option>Soirée annuelle</option>
                 </select>
               </div>
             </div>
