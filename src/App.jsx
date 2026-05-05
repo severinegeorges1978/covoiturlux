@@ -51,8 +51,8 @@ const COMMUNES_VILLAGES = {
   "Wellin": ["Wellin", "Chanly", "Halma", "Lomprez", "Sohier"],
 };
 
-const TYPE_COLORS = { "Bal de kermesse":"#e8650a","Discothèque":"#6b21a8","Soirée annuelle":"#0369a1","Soirées privées":"#be185d" };
-const TYPE_ICONS  = { "Bal de kermesse":"🎪","Discothèque":"🎵","Soirée annuelle":"⭐","Soirées privées":"🎂" };
+const TYPE_COLORS = { "Bal de kermesse":"#e8650a","Discothèque":"#6b21a8","Festival/Concert":"#0369a1","Soirée privée":"#be185d","Soirée carnaval":"#b45309","Autre":"#6b7280" };
+const TYPE_ICONS  = { "Bal de kermesse":"🎪","Discothèque":"🎵","Festival/Concert":"🎸","Soirée privée":"🎂","Soirée carnaval":"🎭","Autre":"🎉" };
 
 function formatDate(d) {
   return new Date(d).toLocaleDateString("fr-BE",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
@@ -586,7 +586,7 @@ export default function App() {
                 <button className="btn btn-primary btn-sm" onClick={()=>setShowAddSoiree(true)}>+ Ajouter</button>
               </div>
               <div className="chip-row">
-                {["Tous","Bal de kermesse","Discothèque","Soirée annuelle"].map(t=>(
+                {["Tous","Bal de kermesse","Discothèque","Festival/Concert","Soirée privée","Soirée carnaval","Autre"].map(t=>(
                   <button key={t} className={`chip ${filterType===t?"active":""}`} onClick={()=>setFilterType(t)}>
                     {t!=="Tous"&&TYPE_ICONS[t]+" "}{t}
                   </button>
