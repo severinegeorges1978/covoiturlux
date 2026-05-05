@@ -942,7 +942,10 @@ export default function App() {
                 <select className="form-select" value={newSoiree.type} onChange={e=>setNewSoiree(p=>({...p,type:e.target.value}))}>
                   <option>Bal de kermesse</option>
                   <option>Discothèque</option>
-                  <option>Soirée annuelle</option>
+                  <option>Festival/Concert</option>
+                  <option>Soirée privée</option>
+                  <option>Soirée carnaval</option>
+                  <option>Autre</option>
                 </select>
               </div>
             </div>
