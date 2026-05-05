@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 // ─── CONFIG SUPABASE ─────────────────────────────────────────────────────────
 // Remplace ces deux valeurs par celles de ton projet Supabase
+const ADMIN_ID = "0185a3a2-8504-4e2e-8c45-1166cde2934b";
 const SUPABASE_URL = "https://mvsuqyfmntukrynpigdh.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12c3VxeWZtbnR1a3J5bnBpZ2RoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzE2NjMsImV4cCI6MjA5MzQwNzY2M30.Wm3opy41JBQLy7OgOwtFTIgC4CJEv4OVHkNthyhX3mA";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -392,6 +393,15 @@ export default function App() {
     loadSoirees();
   }
 
+  async function handleDeleteSoiree(soireeId) {
+    if(!window.confirm("Supprimer cette soiree ? Cette action est irreversible.")) return;
+    await supabase.from("inscriptions").delete().eq("soiree_id", soireeId);
+    await supabase.from("forum_messages").delete().eq("soiree_id", soireeId);
+    await supabase.from("soirees").delete().eq("id", soireeId);
+    setSelectedSoiree(null);
+    loadSoirees();
+  }
+
   async function handleEditSoiree() {
     if(!editSoiree || !editSoiree.nom || !editSoiree.date || !editSoiree.lieu) return;
     await supabase.from("soirees").update({
@@ -651,7 +661,10 @@ export default function App() {
                           );
                         })}
                         {inscriptionMsg&&<div className="alert alert-success">{inscriptionMsg}</div>}
-                        {s.created_by===user.id && <button className="btn btn-outline btn-sm" style={{marginBottom:10}} onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>Modifier</button>}
+                        <div style={{display:"flex",gap:8,marginBottom:10}}>
+                        {s.created_by===user.id && <button className="btn btn-outline btn-sm" onClick={e=>{e.stopPropagation();setEditSoiree({...s})}}>Modifier</button>}
+                        {(s.created_by===user.id || user.id===ADMIN_ID) && <button className="btn btn-sm" style={{background:"#fee2e2",color:"#991b1b",border:"none",cursor:"pointer",borderRadius:"10px",padding:"7px 14px",fontWeight:600}} onClick={e=>{e.stopPropagation();handleDeleteSoiree(s.id)}}>Supprimer</button>}
+                        </div>
                         {meInscrit ? (
                           <button className="btn btn-ghost btn-sm" onClick={()=>handleDesister(s.id)}>Se désister</button>
                         ) : (
