@@ -458,7 +458,13 @@ export default function App() {
     return conv.user1===user?.id ? conv.p2 : conv.p1;
   };
 
-  const filteredSoirees = soirees.filter(s=>filterType==="Tous"||s.type===filterType);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const [showPast, setShowPast] = useState(false);
+  const filteredSoirees = soirees.filter(s=>{
+    const isPast = new Date(s.date) < today;
+    if(!showPast && isPast) return false;
+    return filterType==="Tous"||s.type===filterType;
+  });
   const filteredCommunes = Object.keys(COMMUNES_VILLAGES).filter(c=>c.toLowerCase().includes(communeSearch.toLowerCase()));
   const myTrajets = soirees.filter(s=>s.inscriptions?.find(i=>i.user_id===user?.id));
 
@@ -582,7 +588,7 @@ export default function App() {
                 <div className="stat-card"><div className="stat-num">{myTrajets.length}</div><div className="stat-label">Mes trajets</div></div>
               </div>
               <div className="section-title">🔜 Prochaines soirées</div>
-              {soirees.slice(0,3).map(s=>(
+              {soirees.filter(s=>new Date(s.date)>=new Date()).slice(0,3).map(s=>(
                 <div key={s.id} className="soiree-card" onClick={()=>{setSelectedSoiree(s.id);setTab("soirees")}}>
                   <div className="soiree-header">
                     <div>
@@ -606,7 +612,10 @@ export default function App() {
             <div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18}}>
                 <h2 style={{fontFamily:"Fraunces,serif",fontSize:"1.4rem",color:"var(--brown)"}}>Soirées répertoriées</h2>
-                <button className="btn btn-primary btn-sm" onClick={()=>setShowAddSoiree(true)}>+ Ajouter</button>
+                <div style={{display:"flex",gap:8}}>
+                  <button className="btn btn-ghost btn-sm" onClick={()=>setShowPast(!showPast)}>{showPast?"Masquer passées":"Voir passées"}</button>
+                  <button className="btn btn-primary btn-sm" onClick={()=>setShowAddSoiree(true)}>+ Ajouter</button>
+                </div>
               </div>
               <div className="chip-row">
                 {["Tous","Bal de kermesse","Discothèque","Festival/Concert","Soirée privée","Soirée carnaval","Autre"].map(t=>(
