@@ -209,7 +209,7 @@ h1,h2,h3,h4{font-family:'Fraunces',serif}
 .msg-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
 .msg-bubble-wrap{display:flex;gap:8px;align-items:flex-end}
 .msg-bubble-wrap.me{flex-direction:row-reverse}
-.msg-bubble{max-width:70%;padding:10px 14px;border-radius:16px;font-size:.88rem;line-height:1.5;word-break:break-word}
+.msg-bubble{max-width:70%;min-width:60px;padding:10px 14px;border-radius:16px;font-size:.88rem;line-height:1.5;word-break:break-word;white-space:pre-wrap;overflow-wrap:break-word}
 .msg-bubble.them{background:var(--warm);color:var(--dark);border-bottom-left-radius:4px}
 .msg-bubble.me{background:var(--orange);color:#fff;border-bottom-right-radius:4px}
 .msg-ts{font-size:.68rem;color:var(--muted);margin-top:3px;text-align:right}
