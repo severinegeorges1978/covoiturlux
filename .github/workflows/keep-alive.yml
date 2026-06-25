@@ -10,5 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase
+        env:
+          ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          curl "https://mvsuqyfmntukrynpigdh.supabase.co/rest/v1/" -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}"
+          curl "https://mvsuqyfmntukrynpigdh.supabase.co/rest/v1/" -H "apikey: $ANON_KEY"
